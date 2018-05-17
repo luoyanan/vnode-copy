@@ -1,9 +1,9 @@
-import HelloWorld from '@/components/HelloWorld'
+import Home from '../views/index.vue'
 
 const routers = [{
   path: '/',
-  name: 'HelloWorld',
-  component: HelloWorld
+  name: 'Home',
+  component: Home
 }]
 
 export default routers
@@ -11,8 +11,8 @@ export default routers
 //   routes: [
 //     {
 //       path: '/',
-//       name: 'HelloWorld',
-//       component: HelloWorld
+//       name: 'Home',
+//       component: Home
 //     }
 //   ]
 // })
