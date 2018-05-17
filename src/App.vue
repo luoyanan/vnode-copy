@@ -6,12 +6,13 @@
 </template>
 
 <script>
+
 export default {
   name: 'App'
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
