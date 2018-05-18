@@ -7,6 +7,7 @@ import store from './store'
 
 require('./assets/iconfont/iconfont.css')
 require('./assets/less/reset.less')
+require('./assets/less/base.less')
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
