@@ -1,27 +1,62 @@
 <template>
     <div id="header">
-        <div class="page-cover"></div>
+        <div class="page-cover" v-show="isShowMenu" @click="hideMenu"></div>
         <header>
-            <div class="menu-icon"></div>
+            <div class="iconfont menu-icon" @click="showMenu">&#xe637;</div>
             <div class="title">全部</div>
-            <div class="tologin">&#xe60f;</div>
+            <div class="tologin iconfont">&#xe608;</div>
         </header>
     </div>
 </template>
+<script>
+import {mapState,mapMutations } from 'vuex'
+export default {
+    data () {
+        return {
+            // showMenu: false
+        }
+    },
+    computed: {
+        ...mapState([
+             'isShowMenu'
+        ])
+        // isShowMenu () {
+        //     return this.$store.state.isShowMenu
+        // }
+    },
+    methods: {
+        ...mapMutations([
+            'showMenu',
+            'hideMenu'
+        ])
+    }
+}
+</script>
 <style lang="less" scoped>
     #header {
+        .page-cover{
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            position: fixed;
+            left: 0;
+            top: 0;
+            opacity: .5;
+            z-index: 10;
+        }
         header{
+            height: 40px;
+            line-height: 40px;
             display: flex;
-            .menu-icon {
-                width: 49px;
-                height: 44px;
-                position: absolute;
-                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAgBAMAAACMSheAAAAABGdBT…VYdGRhdGU6bW9kaWZ5ADIwMTUtMTAtMTBUMTA6MDc6MTkrMDg6MDBBOXcbAAAAAElFTkSuQmCC) no-repeat 50%;
-                background-size: 19px 16px;
-                margin: 0;
-                z-index: 1;
-                top: 0;
-                left: 0;
+            .menu-icon,.tologin{
+                padding: 0 10px;
+            }
+            .tologin{
+                color: #42b983;
+            }
+            .title{
+                width: 100%;
+                text-align: center;
             }
         }
     }
