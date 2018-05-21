@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Header></Header>
+  <div class="wrapper">
+    <Header :pageTitle="searchObj.tab | getPageTitle"></Header>
 	<Menu></Menu>
     <section id="list">
     	<ul>
@@ -33,15 +33,25 @@
 import axios from 'axios'
 import Header from '../components/header.vue'
 import Menu from '../components/menu.vue'
-import utils from '../libs/utils.js'
+import * as utils from '../libs/utils.js'
 export default {
 	data () {
 		return {
 			searchObj: {
 				page: 0,
-				limit : 20
+				limit : 20,
+				tab: 'all'
 			},
 			listData:[]
+		}
+	},
+	computed: {
+		pageTitle:function(){
+			// let pageTitle
+			// if(this.$route.query && this.$route.query.tab){
+
+			// }
+			// return 
 		}
 	},
 	components: {
@@ -49,23 +59,48 @@ export default {
 		Menu
 	},
 	mounted () {
-		let self = this
-		console.log(self.searchObj)
-		axios.get('https://cnodejs.org/api/v1/topics',{
-			params: self.searchObj
-		})
-		.then(function(data){
-			self.dealTopicData(data.data)
-		})
-		.catch(function(error){
-			console.log(error)
-		})
+		this.getTopics()
+		// console.log(this.searchObj)
+		// this.getTopics()
 	},
 	filters: {
         getLastTimeStr(time, isFromNow) {
             return utils.getLastTimeStr(time, isFromNow)
+        },
+        getPageTitle(tab) {
+        	let pageTitle = ''
+			switch(tab) {
+    			case 'good':
+    				pageTitle = '精华'
+    				break
+    			case 'share':
+    				pageTitle = '问答'
+    				break
+    			case 'ask':
+    				pageTitle = '问答'
+    				break
+    			case 'job':
+    				pageTitle = '招聘'
+    				break
+    			default :
+        			pageTitle = '全部'
+        			break
+        	}
+ 			return pageTitle
         }
     },
+    // beforeRouteUpdate (to,from,next) {
+    	
+    // 	next()
+    // },
+    // beforeRouteEnter (to,from,next) {
+    // 	console.log('bfrtenter')
+    // 	next()
+    // },
+    // beforeRouteLeave (to,from,next) {
+    // 	console.log('bfrtleave')
+    // 	next()
+    // },
 	methods: {
 		dealTopicData (data) {
 			if(data.success){
@@ -74,12 +109,35 @@ export default {
 		},
 		getTabInfo (tab, good, top, isClass) {
 			return utils.getTabInfo(tab, good, top, isClass)
+		},
+		getTopics () {
+			let self = this;
+			axios.get('https://cnodejs.org/api/v1/topics',{
+				params: self.searchObj
+			})
+			.then(function(data){
+				self.dealTopicData(data.data)
+			})
+			.catch(function(error){
+				console.log(error)
+			})
+		}
+	},
+	watch: {
+		'$route' (to,from) {
+			if(to.query && to.query.tab){
+				this.$store.commit('hideMenu')
+				this.searchObj.tab = this.$route.query.tab
+    			this.getTopics()
+			}
 		}
 	}
 }
 </script>
 <style lang="less" scoped>
 	#list{
+	    padding-top: 40px;
+	    overflow: scroll;
 		li{
 	    	border-bottom: 1px solid #999;
 			padding: 0 15px;

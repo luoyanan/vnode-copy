@@ -3,7 +3,7 @@
         <div class="page-cover" v-show="isShowMenu" @click="hideMenu"></div>
         <header>
             <div class="iconfont menu-icon" @click="showMenu">&#xe637;</div>
-            <div class="title">全部</div>
+            <div class="title">{{pageTitle}}</div>
             <div class="tologin iconfont">&#xe608;</div>
         </header>
     </div>
@@ -11,6 +11,12 @@
 <script>
 import {mapState,mapMutations } from 'vuex'
 export default {
+    props: {
+        pageTitle : {
+            type: String,
+            require: true
+        }
+    },
     data () {
         return {
             // showMenu: false
@@ -48,6 +54,10 @@ export default {
             height: 40px;
             line-height: 40px;
             display: flex;
+            position: fixed;
+            background-color: #fff;
+            width: 100%;
+            border-bottom: 1px solid #ccc;
             .menu-icon,.tologin{
                 padding: 0 10px;
             }

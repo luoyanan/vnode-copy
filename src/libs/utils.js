@@ -1,10 +1,7 @@
 import Timeago from 'timeago.js'
-/**
- * 调用Timeago库显示到现在的时间
- */
 
 // 获取不同tab的信息
-exports.getTabInfo = (tab, good, top, isClass) => {
+export let getTabInfo = (tab, good, top, isClass) => {
     let str = '';
     let className = '';
     if (top) {
@@ -53,7 +50,7 @@ const MillisecondToDate = (time) => {
  * @param {string} time 需要格式化的时间
  * @param {bool} friendly 是否是fromNow
  */
-exports.getLastTimeStr = (time, friendly) => {
+export let getLastTimeStr = (time, friendly) => {
     if (friendly) {
         return MillisecondToDate(time)
     } else {
@@ -61,4 +58,4 @@ exports.getLastTimeStr = (time, friendly) => {
     }
 }
 
-exports.MillisecondToDate = MillisecondToDate
+export { MillisecondToDate }
